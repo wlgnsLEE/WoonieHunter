@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WoonieHunter
 {
     internal class Entity
     {
+        public PictureBox PB_Entity;
         private int life;
         private int entityX;
         private int entityY;
@@ -15,6 +17,8 @@ namespace WoonieHunter
 
         public Entity()
         {
+            PB_Entity = new PictureBox();
+
             life = 3;
             entityX = 350;
             entityY = 700;
@@ -44,6 +48,11 @@ namespace WoonieHunter
         public void SetEntityY(int y)
         {
             entityY = y;
+        }
+
+        public void SetSpeed(int speed)
+        {
+            this.speed = speed;
         }
     }
 

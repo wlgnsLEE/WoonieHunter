@@ -13,6 +13,7 @@ namespace WoonieHunter
     public partial class Form1 : Form
     {
         Entity player;
+        private List<Entity> enemies;
         private List<PictureBox> bullets;
         private List<PictureBox> skills;
         private int bulletSpeed = 15;
@@ -34,13 +35,22 @@ namespace WoonieHunter
             this.MaximumSize = new Size(800, 1000);
 
             player = new Entity();
+            player.PB_Entity.Image = Properties.Resources.character;
+            player.PB_Entity.Visible = true;
+            player.PB_Entity.Size = new Size(50, 100);
+            player.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
+            Controls.Add(player.PB_Entity);
+
             bullets = new List<PictureBox>();
             skills= new List<PictureBox>();
+            enemies = new List<Entity>();
 
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
 
             tmr.Start();
             tmr_bullet.Start();
+            tmr_spawn_enemy.Start();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -54,24 +64,25 @@ namespace WoonieHunter
             int Y = player.GetEntityY();
             int speed = player.GetSpeed();
 
-            if (isLeftPressed&&character.Left>=50)
+            if (isLeftPressed&&player.PB_Entity.Left>=50)
             {
                 player.SetEntityX(X - speed);
             }
-            if (isRightPressed&&character.Right<=750)
+            if (isRightPressed&& player.PB_Entity.Right<=750)
             {
                 player.SetEntityX(X + speed);
             }
-            if (isUpPressed&&character.Top>=250)
+            if (isUpPressed&& player.PB_Entity.Top>=250)
             {
                 player.SetEntityY(Y - speed);
             }
-            if (isDownPressed&&character.Bottom<=950)
+            if (isDownPressed&& player.PB_Entity.Bottom<=950)
             {
                 player.SetEntityY(Y + speed);
             }
 
-            character.Location = new System.Drawing.Point(X, Y);
+            player.PB_Entity.Location = new System.Drawing.Point(X, Y);
+
             if (bullettimmer == 15)//총알 발사 내부쿨
             {
                 canshot = true;
@@ -84,6 +95,35 @@ namespace WoonieHunter
             }
             bullettimmer++;
             skilltimer++;
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].PB_Entity.Top += enemies[i].GetSpeed();
+
+                if (enemies[i].PB_Entity.Bottom > 1000)
+                {
+                    Controls.Remove(enemies[i].PB_Entity);
+
+                    enemies.RemoveAt(i);
+
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                bullets[i].Top -= bulletSpeed;
+
+                if (bullets[i].Top < 0)
+                {
+                    Controls.Remove(bullets[i]);
+
+                    bullets.RemoveAt(i);
+
+                    i--;
+                }
+            }
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -204,6 +244,32 @@ namespace WoonieHunter
             {
                 return false;
             }
+        }
+
+        private void create_enemy()
+        {
+            Random generateRandom;
+            DateTime curTime = DateTime.Now;
+            generateRandom = new Random(curTime.Millisecond);
+
+            int rand_pos_x = generateRandom.Next(10, 790);
+            int rand_pos_y = generateRandom.Next(0, 50);
+
+            Entity new_enemy = new Entity();
+            new_enemy.PB_Entity = new PictureBox();
+            new_enemy.SetSpeed(5);
+            new_enemy.PB_Entity.Image = Properties.Resources.asteroid;
+            new_enemy.PB_Entity.Visible = true;
+            new_enemy.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
+
+            enemies.Add(new_enemy);
+            Controls.Add(new_enemy.PB_Entity);
+        }
+
+
+        private void tmr_spawn_enemy_Tick(object sender, EventArgs e)
+        {
+            create_enemy();
         }
     }
 }
