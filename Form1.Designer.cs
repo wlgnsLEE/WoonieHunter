@@ -42,7 +42,7 @@
             // 
             this.character.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("character.BackgroundImage")));
             this.character.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.character.Location = new System.Drawing.Point(370, 349);
+            this.character.Location = new System.Drawing.Point(269, 349);
             this.character.Name = "character";
             this.character.Size = new System.Drawing.Size(50, 100);
             this.character.TabIndex = 0;

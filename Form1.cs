@@ -14,6 +14,7 @@ namespace WoonieHunter
     {
         Entity player;
         private List<PictureBox> bullets;
+        private List<PictureBox> skills;
         private int bulletSpeed = 15;
         private bool isLeftPressed = false;
         private bool isRightPressed = false;
@@ -21,16 +22,20 @@ namespace WoonieHunter
         private bool isDownPressed = false;
         private bool canshot = true;
         private int bullettimmer = 0;
+        private int skilltimer = 0;
+        private int skillcount = 3;
+        private bool canuseskill = true;
 
         public Form1()
         {
             InitializeComponent();
 
-            this.MinimumSize = new Size(800, 1000);
+            this.MinimumSize = new Size(800, 1000);//화면 크기
             this.MaximumSize = new Size(800, 1000);
 
             player = new Entity();
             bullets = new List<PictureBox>();
+            skills= new List<PictureBox>();
 
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
 
@@ -67,12 +72,18 @@ namespace WoonieHunter
             }
 
             character.Location = new System.Drawing.Point(X, Y);
-            if (bullettimmer == 15)
+            if (bullettimmer == 15)//총알 발사 내부쿨
             {
                 canshot = true;
                 bullettimmer = 0;
             }
+            if (skilltimer == 300)//스킬 내부쿨
+            {
+                canuseskill = true;
+                skilltimer = 0;
+            }
             bullettimmer++;
+            skilltimer++;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -85,7 +96,7 @@ namespace WoonieHunter
                 isUpPressed = true;
             else if (e.KeyCode == Keys.Down)
                 isDownPressed = true;
-            else if (e.KeyCode == Keys.Space)
+            else if (e.KeyCode == Keys.Space)//공격키
             {
                 if (canshot ==true)
                 {
@@ -94,12 +105,35 @@ namespace WoonieHunter
 
                     PictureBox new_bullet = new PictureBox();
                     new_bullet.Image = Properties.Resources.bullet;
-                    new_bullet.Location = new System.Drawing.Point(X, Y);
+                    new_bullet.Location = new System.Drawing.Point(X+21, Y);
                     new_bullet.Visible = true;
 
                     bullets.Add(new_bullet);
                     this.Controls.Add(new_bullet);
                     canshot=false;
+
+                }
+            }else if(e.KeyCode == Keys.S)
+            {
+                if (skillcount > 1 && canuseskill == true)
+                {
+                    //스킬 사용
+                    int X=player.GetEntityX();
+                    int Y=player.GetEntityY();
+
+                    PictureBox new_skill = new PictureBox();
+                    new_skill.Image = Properties.Resources.skill;
+                    new_skill.Location = new System.Drawing.Point(X-80,Y-90);
+                    new_skill.Visible = true;
+                    new_skill.SizeMode=PictureBoxSizeMode.Zoom;
+                    new_skill.Width = 200;
+                    new_skill.Height = 200;
+                    
+
+                    skills.Add(new_skill);
+                    this.Controls.Add(new_skill);
+                    skillcount--;
+                    canuseskill = false;
                 }
             }
         }
@@ -122,7 +156,7 @@ namespace WoonieHunter
             {
                 bullets[i].Top -= bulletSpeed;
 
-                if (bullets[i].Top < -bullets[i].Height)
+                if (bullets[i].Top < -bullets[i].Height)//총알이 맵 밖으로 나갔을 때
                 {
                     this.Controls.Remove(bullets[i]);
 
@@ -130,6 +164,45 @@ namespace WoonieHunter
 
                     i--;
                 }
+                /* 
+                for(int j = 0; j < enemies.Count; j++)
+                {
+                    if (IsAttacked(bullet[i], enemies[j])==true)//적과 충돌했을 때
+                    {
+                        this.Controls.Remove(bullets[i]);//총알 삭제
+                        bullets.RemoveAt(i);
+                        i--;
+
+                        this.Controls.Remove(enemies[j]);//적 삭제
+                        enemies.RemoveAt(j);
+                        j--;
+                    }
+                }
+                */
+            }
+            for(int i=0;i<skills.Count;i++)
+            {
+                skills[i].Top -= bulletSpeed/5;
+
+            }
+        }
+
+        public bool IsAttacked(PictureBox bullet, PictureBox entity)//총알과 객체 충돌 검사
+        {
+            if (bullet.Top + 3 <= entity.Bottom&&entity.Bottom-3>=bullet.Top)
+            {
+                if (bullet.Left + 8 <= entity.Right && bullet.Right - 8 >= entity.Left)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
     }

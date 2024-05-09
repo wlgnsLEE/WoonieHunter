@@ -16,8 +16,8 @@ namespace WoonieHunter
         public Entity()
         {
             life = 3;
-            entityX = 550;
-            entityY = 650;
+            entityX = 350;
+            entityY = 700;
             speed = 5;
         }
 
