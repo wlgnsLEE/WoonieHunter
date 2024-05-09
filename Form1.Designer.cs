@@ -29,12 +29,70 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.character = new System.Windows.Forms.PictureBox();
+            this.tmr = new System.Windows.Forms.Timer(this.components);
+            this.bullet = new System.Windows.Forms.PictureBox();
+            this.tmr_bullet = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.character)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bullet)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // character
+            // 
+            this.character.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("character.BackgroundImage")));
+            this.character.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.character.Location = new System.Drawing.Point(370, 349);
+            this.character.Name = "character";
+            this.character.Size = new System.Drawing.Size(50, 100);
+            this.character.TabIndex = 0;
+            this.character.TabStop = false;
+            // 
+            // tmr
+            // 
+            this.tmr.Interval = 1;
+            this.tmr.Tick += new System.EventHandler(this.tmr_Tick);
+            // 
+            // bullet
+            // 
+            this.bullet.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bullet.BackgroundImage")));
+            this.bullet.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.bullet.Location = new System.Drawing.Point(388, 312);
+            this.bullet.Name = "bullet";
+            this.bullet.Size = new System.Drawing.Size(15, 31);
+            this.bullet.TabIndex = 1;
+            this.bullet.TabStop = false;
+            this.bullet.Visible = false;
+            // 
+            // tmr_bullet
+            // 
+            this.tmr_bullet.Interval = 1;
+            this.tmr_bullet.Tick += new System.EventHandler(this.tmr_bullet_Tick);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.bullet);
+            this.Controls.Add(this.character);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            ((System.ComponentModel.ISupportInitialize)(this.character)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bullet)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox character;
+        private System.Windows.Forms.Timer tmr;
+        private System.Windows.Forms.PictureBox bullet;
+        private System.Windows.Forms.Timer tmr_bullet;
     }
 }
 
