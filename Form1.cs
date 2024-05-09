@@ -19,6 +19,8 @@ namespace WoonieHunter
         private bool isRightPressed = false;
         private bool isUpPressed = false;
         private bool isDownPressed = false;
+        private bool canshot = true;
+        private int bullettimmer = 0;
 
         public Form1()
         {
@@ -65,6 +67,12 @@ namespace WoonieHunter
             }
 
             character.Location = new System.Drawing.Point(X, Y);
+            if (bullettimmer == 15)
+            {
+                canshot = true;
+                bullettimmer = 0;
+            }
+            bullettimmer++;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -79,16 +87,20 @@ namespace WoonieHunter
                 isDownPressed = true;
             else if (e.KeyCode == Keys.Space)
             {
-                int X = player.GetEntityX();
-                int Y = player.GetEntityY();
+                if (canshot ==true)
+                {
+                    int X = player.GetEntityX();
+                    int Y = player.GetEntityY();
 
-                PictureBox new_bullet = new PictureBox();
-                new_bullet.Image = Properties.Resources.bullet;
-                new_bullet.Location = new System.Drawing.Point(X, Y);
-                new_bullet.Visible = true;
+                    PictureBox new_bullet = new PictureBox();
+                    new_bullet.Image = Properties.Resources.bullet;
+                    new_bullet.Location = new System.Drawing.Point(X, Y);
+                    new_bullet.Visible = true;
 
-                bullets.Add(new_bullet);
-                this.Controls.Add(new_bullet);
+                    bullets.Add(new_bullet);
+                    this.Controls.Add(new_bullet);
+                    canshot=false;
+                }
             }
         }
 
