@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace WoonieHunter
 {
@@ -41,6 +42,8 @@ namespace WoonieHunter
             player.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             Controls.Add(player.PB_Entity);
 
+            player.PB_Entity.BringToFront();
+
             bullets = new List<PictureBox>();
             skills= new List<PictureBox>();
             enemies = new List<Entity>();
@@ -51,6 +54,10 @@ namespace WoonieHunter
             tmr_bullet.Start();
             tmr_spawn_enemy.Start();
 
+
+            // 인게임 배경화면
+            InitBackGround1();
+            InitBackGround2();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -60,6 +67,9 @@ namespace WoonieHunter
 
         private void tmr_Tick(object sender, EventArgs e)
         {
+
+            background1.SendToBack();
+            background1_.SendToBack();
             int X = player.GetEntityX();
             int Y = player.GetEntityY();
             int speed = player.GetSpeed();
@@ -124,6 +134,9 @@ namespace WoonieHunter
                 }
             }
 
+
+            // 배경 무한 이동
+            MoveBackGround1(1);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -274,5 +287,105 @@ namespace WoonieHunter
         {
             create_enemy();
         }
+
+        public void InitBackGround1()
+        {
+            BackColor = Color.FromArgb(0, 0, 0);
+            background1.Image = Properties.Resources.bg_stars;
+            background1.SizeMode = PictureBoxSizeMode.StretchImage;
+            background1.Location = new Point(0, 0);
+            background1.Width = Width;
+            background1.Height = Height;
+            background1.SendToBack();
+
+            background1_.Image = Properties.Resources.bg_stars;
+            background1_.SizeMode = PictureBoxSizeMode.StretchImage;
+            background1_.Location = new Point(0, 1000);
+            background1_.Width = Width;
+            background1_.Height = Height;
+            background1_.SendToBack();
+        }
+
+        public void InitBackGround2()
+        {
+            /*
+            background2.Image = Properties.Resources.bg_planet3;
+            background2.SizeMode = PictureBoxSizeMode.StretchImage;
+            background2.Location = new Point(0, 0);
+            background2.Width = Width;
+            background2.Height = Height;
+            background2.BringToFront();
+
+
+
+            background2_.Image = Properties.Resources.bg_planet4;
+            background2_.SizeMode = PictureBoxSizeMode.StretchImage;
+            background2_.Location = new Point(0, 1000);
+            background2_.Width = Width;
+            background2_.Height = Height;
+            background2_.BringToFront();
+            */
+            Random generateRandom;
+            DateTime curTime = DateTime.Now;
+            generateRandom = new Random(curTime.Millisecond);
+
+            int rand_pos_x = generateRandom.Next(10, 790);
+            int rand_pos_y = generateRandom.Next(0, 20);
+
+            Entity meteor = new Entity();
+            meteor.PB_Entity = new PictureBox();
+            meteor.SetSpeed(2);
+            meteor.PB_Entity.Image = Properties.Resources.asteroid_small;
+            meteor.PB_Entity.Visible = true;
+            meteor.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
+
+            //meteor.Add(meteor);
+            Controls.Add(meteor.PB_Entity);
+        }
+
+        private void MoveBackGround1(int speed)
+        {
+            if (background1.Top >= 1000)
+            {
+                background1.Top = -1000;
+            }
+            else
+            {
+                background1.Top = background1.Top + speed;
+            }
+
+            if (background1_.Top >= 1000)
+            {
+                background1_.Top = -1000;
+            }
+            else
+            {
+                background1_.Top = background1_.Top + speed;
+            }
+
+        }
+        /*
+        private void MoveBackGround2(int speed)
+        {
+            if (background2.Top >= 1000)
+            {
+                background2.Top = -1000;
+            }
+            else
+            {
+                background2.Top = background2.Top + speed;
+            }
+
+            if (background2_.Top >= 1000)
+            {
+                background2_.Top = -1000;
+            }
+            else
+            {
+                background2_.Top = background2_.Top + speed;
+            }
+
+        }
+        */
     }
 }
