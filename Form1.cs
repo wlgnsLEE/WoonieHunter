@@ -204,21 +204,24 @@ namespace WoonieHunter
 
                     i--;
                 }
-                /* 
+                
                 for(int j = 0; j < enemies.Count; j++)
                 {
-                    if (IsAttacked(bullet[i], enemies[j])==true)//적과 충돌했을 때
+                    if (i >= 0 && j >= 0)
                     {
-                        this.Controls.Remove(bullets[i]);//총알 삭제
-                        bullets.RemoveAt(i);
-                        i--;
+                        if (IsAttacked(bullets[i], enemies[j].PB_Entity) == true)//적과 충돌했을 때
+                        {
+                            this.Controls.Remove(bullets[i]);//총알 삭제
+                            bullets.RemoveAt(i);
+                            i--;
 
-                        this.Controls.Remove(enemies[j]);//적 삭제
-                        enemies.RemoveAt(j);
-                        j--;
+                            this.Controls.Remove(enemies[j].PB_Entity);//적 삭제
+                            enemies.RemoveAt(j);
+                            j--;
+                        }
                     }
                 }
-                */
+                
             }
             for(int i=0;i<skills.Count;i++)
             {
