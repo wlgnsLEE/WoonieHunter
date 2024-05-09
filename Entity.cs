@@ -45,7 +45,10 @@ namespace WoonieHunter
         {
             entityY = y;
         }
+    }
 
-
+    internal class Enemy : Entity
+    {
+        
     }
 }

@@ -24,8 +24,8 @@ namespace WoonieHunter
         {
             InitializeComponent();
 
-            this.MinimumSize = new Size(1200, 800);
-            this.MaximumSize = new Size(1200, 800);
+            this.MinimumSize = new Size(800, 1000);
+            this.MaximumSize = new Size(800, 1000);
 
             player = new Entity();
             bullets = new List<PictureBox>();
@@ -51,7 +51,7 @@ namespace WoonieHunter
             {
                 player.SetEntityX(X - speed);
             }
-            if (isRightPressed&&character.Right<=1150)
+            if (isRightPressed&&character.Right<=750)
             {
                 player.SetEntityX(X + speed);
             }
@@ -59,7 +59,7 @@ namespace WoonieHunter
             {
                 player.SetEntityY(Y - speed);
             }
-            if (isDownPressed&&character.Bottom<=750)
+            if (isDownPressed&&character.Bottom<=950)
             {
                 player.SetEntityY(Y + speed);
             }
