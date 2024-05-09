@@ -1,0 +1,11 @@
+C:\Users\82108\source\repos\new\bin\Debug\WoonieHunter.exe.config
+C:\Users\82108\source\repos\new\bin\Debug\WoonieHunter.exe
+C:\Users\82108\source\repos\new\bin\Debug\WoonieHunter.pdb
+C:\Users\82108\source\repos\new\obj\Debug\WoonieHunter.csproj.AssemblyReference.cache
+C:\Users\82108\source\repos\new\obj\Debug\WoonieHunter.Form1.resources
+C:\Users\82108\source\repos\new\obj\Debug\WoonieHunter.Properties.Resources.resources
+C:\Users\82108\source\repos\new\obj\Debug\WoonieHunter.csproj.GenerateResource.cache
+C:\Users\82108\source\repos\new\obj\Debug\WoonieHunter.csproj.CoreCompileInputs.cache
+C:\Users\82108\source\repos\new\obj\Debug\WoonieHunter.exe
+C:\Users\82108\source\repos\new\obj\Debug\WoonieHunter.pdb
+C:\Users\82108\source\repos\new\obj\Debug\WoonieHunter.Menu.resources

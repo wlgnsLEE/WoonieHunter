@@ -61,6 +61,24 @@ namespace WoonieHunter.Properties {
         }
         
         /// <summary>
+        ///   System.IO.MemoryStream과(와) 유사한 System.IO.UnmanagedMemoryStream 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _1__Track_1 {
+            get {
+                return ResourceManager.GetStream("_1__Track_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.IO.MemoryStream과(와) 유사한 System.IO.UnmanagedMemoryStream 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _10__Track_10 {
+            get {
+                return ResourceManager.GetStream("_10__Track_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
         internal static System.Drawing.Bitmap asteroid {

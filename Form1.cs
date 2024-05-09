@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
+using System.Media;
+using System.Timers;
 
 namespace WoonieHunter
 {
@@ -27,6 +29,11 @@ namespace WoonieHunter
         private int skilltimer = 0;
         private int skillcount = 3;
         private bool canuseskill = true;
+
+        private System.Timers.Timer tmr_bgm;
+
+        private SoundPlayer soundPlayer;
+        private System.Timers.Timer timer;
 
         public Form1()
         {
@@ -54,6 +61,14 @@ namespace WoonieHunter
             tmr_bullet.Start();
             tmr_spawn_enemy.Start();
 
+            soundPlayer = new SoundPlayer();
+            timer = new System.Timers.Timer();
+
+            // 타이머 설정
+            timer.Interval = 123000;
+            timer.Elapsed += Timer_Elapsed;
+            timer.AutoReset = true;
+
 
             // 인게임 배경화면
             InitBackGround1();
@@ -62,9 +77,16 @@ namespace WoonieHunter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-        }
+            soundPlayer.Stream = Properties.Resources._10__Track_10;
+            soundPlayer.Play();
 
+            timer.Start();
+        }
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            soundPlayer.Stream = Properties.Resources._10__Track_10;
+            soundPlayer.Play();
+        }
         private void tmr_Tick(object sender, EventArgs e)
         {
 
