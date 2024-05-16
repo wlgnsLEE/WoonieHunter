@@ -19,6 +19,7 @@ namespace WoonieHunter
         private List<Entity> enemies;
         private List<PictureBox> bullets;
         private List<PictureBox> skills;
+        private List<Entity> meteors;
         private int bulletSpeed = 15;
         private bool isLeftPressed = false;
         private bool isRightPressed = false;
@@ -52,14 +53,16 @@ namespace WoonieHunter
             player.PB_Entity.BringToFront();
 
             bullets = new List<PictureBox>();
-            skills= new List<PictureBox>();
+            skills = new List<PictureBox>();
             enemies = new List<Entity>();
+            meteors = new List<Entity>();
 
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
 
             tmr.Start();
             tmr_bullet.Start();
             tmr_spawn_enemy.Start();
+            //tmr_spawn_meteor.Start();
 
             soundPlayer = new SoundPlayer();
             timer = new System.Timers.Timer();
@@ -89,26 +92,28 @@ namespace WoonieHunter
         }
         private void tmr_Tick(object sender, EventArgs e)
         {
-
+            background2.SendToBack();
+            background2_.SendToBack();
             background1.SendToBack();
             background1_.SendToBack();
+
             int X = player.GetEntityX();
             int Y = player.GetEntityY();
             int speed = player.GetSpeed();
 
-            if (isLeftPressed&&player.PB_Entity.Left>=50)
+            if (isLeftPressed && player.PB_Entity.Left >= 50)
             {
                 player.SetEntityX(X - speed);
             }
-            if (isRightPressed&& player.PB_Entity.Right<=750)
+            if (isRightPressed && player.PB_Entity.Right <= 750)
             {
                 player.SetEntityX(X + speed);
             }
-            if (isUpPressed&& player.PB_Entity.Top>=250)
+            if (isUpPressed && player.PB_Entity.Top >= 250)
             {
                 player.SetEntityY(Y - speed);
             }
-            if (isDownPressed&& player.PB_Entity.Bottom<=950)
+            if (isDownPressed && player.PB_Entity.Bottom <= 950)
             {
                 player.SetEntityY(Y + speed);
             }
@@ -159,6 +164,22 @@ namespace WoonieHunter
 
             // 배경 무한 이동
             MoveBackGround1(1);
+            MoveBackGround2(2);
+
+            // 배경 메테오
+            for (int i = 0; i < meteors.Count; i++)
+            {
+                meteors[i].PB_Entity.Top += meteors[i].GetSpeed();
+
+                if (meteors[i].PB_Entity.Bottom > 1000)
+                {
+                    Controls.Remove(meteors[i].PB_Entity);
+
+                    meteors.RemoveAt(i);
+
+                    i--;
+                }
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -173,37 +194,38 @@ namespace WoonieHunter
                 isDownPressed = true;
             else if (e.KeyCode == Keys.Space)//공격키
             {
-                if (canshot ==true)
+                if (canshot == true)
                 {
                     int X = player.GetEntityX();
                     int Y = player.GetEntityY();
 
                     PictureBox new_bullet = new PictureBox();
                     new_bullet.Image = Properties.Resources.bullet;
-                    new_bullet.Location = new System.Drawing.Point(X+21, Y);
+                    new_bullet.Location = new System.Drawing.Point(X + 21, Y);
                     new_bullet.Visible = true;
 
                     bullets.Add(new_bullet);
                     this.Controls.Add(new_bullet);
-                    canshot=false;
+                    canshot = false;
 
                 }
-            }else if(e.KeyCode == Keys.S)
+            }
+            else if (e.KeyCode == Keys.S)
             {
                 if (skillcount > 1 && canuseskill == true)
                 {
                     //스킬 사용
-                    int X=player.GetEntityX();
-                    int Y=player.GetEntityY();
+                    int X = player.GetEntityX();
+                    int Y = player.GetEntityY();
 
                     PictureBox new_skill = new PictureBox();
                     new_skill.Image = Properties.Resources.skill;
-                    new_skill.Location = new System.Drawing.Point(X-80,Y-90);
+                    new_skill.Location = new System.Drawing.Point(X - 80, Y - 90);
                     new_skill.Visible = true;
-                    new_skill.SizeMode=PictureBoxSizeMode.Zoom;
+                    new_skill.SizeMode = PictureBoxSizeMode.Zoom;
                     new_skill.Width = 200;
                     new_skill.Height = 200;
-                    
+
 
                     skills.Add(new_skill);
                     this.Controls.Add(new_skill);
@@ -227,7 +249,7 @@ namespace WoonieHunter
 
         private void tmr_bullet_Tick(object sender, EventArgs e)
         {
-            for(int i=0;i<bullets.Count;i++)
+            for (int i = 0; i < bullets.Count; i++)
             {
                 bullets[i].Top -= bulletSpeed;
 
@@ -239,8 +261,8 @@ namespace WoonieHunter
 
                     i--;
                 }
-                
-                for(int j = 0; j < enemies.Count; j++)
+
+                for (int j = 0; j < enemies.Count; j++)
                 {
                     if (i >= 0 && j >= 0)
                     {
@@ -256,18 +278,18 @@ namespace WoonieHunter
                         }
                     }
                 }
-                
+
             }
-            for(int i=0;i<skills.Count;i++)
+            for (int i = 0; i < skills.Count; i++)
             {
-                skills[i].Top -= bulletSpeed/5;
+                skills[i].Top -= bulletSpeed / 5;
 
             }
         }
 
         public bool IsAttacked(PictureBox bullet, PictureBox entity)//총알과 객체 충돌 검사
         {
-            if (bullet.Top + 3 <= entity.Bottom&&entity.Bottom-3>=bullet.Top)
+            if (bullet.Top + 3 <= entity.Bottom && entity.Bottom - 3 >= bullet.Top)
             {
                 if (bullet.Left + 8 <= entity.Right && bullet.Right - 8 >= entity.Left)
                 {
@@ -310,6 +332,11 @@ namespace WoonieHunter
             create_enemy();
         }
 
+        private void tmr_spawn_meteor_Tick(object sender, EventArgs e)
+        {
+            create_meteor();
+        }
+
         public void InitBackGround1()
         {
             BackColor = Color.FromArgb(0, 0, 0);
@@ -330,23 +357,21 @@ namespace WoonieHunter
 
         public void InitBackGround2()
         {
-            /*
-            background2.Image = Properties.Resources.bg_planet3;
-            background2.SizeMode = PictureBoxSizeMode.StretchImage;
-            background2.Location = new Point(0, 0);
-            background2.Width = Width;
-            background2.Height = Height;
-            background2.BringToFront();
 
+            background2.Image = Properties.Resources.bg_planet;
+            background2.Location = new Point(728, 0);
+            background2.Width = 72;
+            background2.Height = 272;
 
-
-            background2_.Image = Properties.Resources.bg_planet4;
-            background2_.SizeMode = PictureBoxSizeMode.StretchImage;
+            background2_.Image = Properties.Resources.bg_planet2;
             background2_.Location = new Point(0, 1000);
-            background2_.Width = Width;
-            background2_.Height = Height;
-            background2_.BringToFront();
-            */
+            background2_.Width = 72;
+            background2_.Height = 272;
+
+        }
+
+        public void create_meteor()
+        {
             Random generateRandom;
             DateTime curTime = DateTime.Now;
             generateRandom = new Random(curTime.Millisecond);
@@ -361,7 +386,7 @@ namespace WoonieHunter
             meteor.PB_Entity.Visible = true;
             meteor.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
 
-            //meteor.Add(meteor);
+            meteors.Add(meteor);
             Controls.Add(meteor.PB_Entity);
         }
 
@@ -386,7 +411,6 @@ namespace WoonieHunter
             }
 
         }
-        /*
         private void MoveBackGround2(int speed)
         {
             if (background2.Top >= 1000)
@@ -408,6 +432,5 @@ namespace WoonieHunter
             }
 
         }
-        */
     }
 }

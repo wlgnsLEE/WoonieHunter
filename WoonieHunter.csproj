@@ -102,6 +102,8 @@
     <None Include="Resources\asteroid-small.png" />
     <None Include="Resources\1. Track 1.wav" />
     <None Include="Resources\10. Track 10.wav" />
+    <None Include="Resources\bg-planet.png" />
+    <None Include="Resources\bg-planet2.png" />
     <Content Include="Resources\skill.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
