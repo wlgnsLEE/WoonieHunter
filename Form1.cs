@@ -273,10 +273,10 @@ namespace WoonieHunter
 
                     PictureBox new_skill = new PictureBox();
                     new_skill.Image = Properties.Resources.skill;
-                    new_skill.Location = new System.Drawing.Point(X - 80, Y - 90);
+                    new_skill.Location = new System.Drawing.Point(X-25 , Y - 90);
                     new_skill.Visible = true;
                     new_skill.SizeMode = PictureBoxSizeMode.Zoom;
-                    new_skill.Width = 200;
+                    new_skill.Width = 100;
                     new_skill.Height = 200;
 
 
@@ -450,11 +450,11 @@ namespace WoonieHunter
         private void create_boss()
         {
             boss new_boss = new boss();
-            new_boss.PB_Entity.Size = new Size(200, 200);
+            new_boss.PB_Entity.Size = new Size(150, 200);
             new_boss.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             new_boss.PB_Entity.Image = Properties.Resources.boss;
             new_boss.PB_Entity.Visible = true;
-            new_boss.PB_Entity.Location = new System.Drawing.Point(250, 10);
+            new_boss.PB_Entity.Location = new System.Drawing.Point(300, 10);
             new_boss.SetSpeed(0);
             new_boss.PB_Entity.BringToFront();
 

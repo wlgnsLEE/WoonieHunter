@@ -20,8 +20,8 @@ namespace WoonieHunter
         {
             InitializeComponent();
 
-            this.MinimumSize = new Size(800, 1000);
-            this.MaximumSize = new Size(800, 1000);
+            this.MinimumSize = new Size(700, 500);
+            this.MaximumSize = new Size(700, 500);
 
             soundPlayer = new SoundPlayer();
             timer = new System.Timers.Timer();
