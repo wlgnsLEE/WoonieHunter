@@ -56,7 +56,7 @@ namespace WoonieHunter
             player = new Entity();
             player.PB_Entity.Image = Properties.Resources.character;
             player.PB_Entity.Visible = true;
-            player.PB_Entity.Size = new Size(50, 100);
+            player.PB_Entity.Size = new Size(50, 80);
             player.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             Controls.Add(player.PB_Entity);
 
@@ -252,6 +252,7 @@ namespace WoonieHunter
                     int Y = player.GetEntityY();
 
                     PictureBox new_bullet = new PictureBox();
+                    new_bullet.Size = new Size(10, 20);
                     new_bullet.Image = Properties.Resources.bullet;
                     new_bullet.Location = new System.Drawing.Point(X + 21, Y);
                     new_bullet.Visible = true;
@@ -436,8 +437,8 @@ namespace WoonieHunter
             int rand_pos_y = generateRandom.Next(0, 50);
 
             Entity new_enemy = new Entity();
-            new_enemy.PB_Entity = new PictureBox();
             new_enemy.SetSpeed(5);
+            new_enemy.PB_Entity.Size = new Size(35, 35);
             new_enemy.PB_Entity.Image = Properties.Resources.asteroid;
             new_enemy.PB_Entity.Visible = true;
             new_enemy.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
@@ -449,13 +450,12 @@ namespace WoonieHunter
         private void create_boss()
         {
             boss new_boss = new boss();
-            new_boss.PB_Entity = new PictureBox();
+            new_boss.PB_Entity.Size = new Size(200, 200);
+            new_boss.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             new_boss.PB_Entity.Image = Properties.Resources.boss;
             new_boss.PB_Entity.Visible = true;
             new_boss.PB_Entity.Location = new System.Drawing.Point(250, 10);
             new_boss.SetSpeed(0);
-            new_boss.PB_Entity.Size = new Size(300, 300);
-            new_boss.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             new_boss.PB_Entity.BringToFront();
 
             Boss.Add(new_boss);
@@ -525,8 +525,8 @@ namespace WoonieHunter
             int rand_pos_y = generateRandom.Next(0, 20);
 
             Entity meteor = new Entity();
-            meteor.PB_Entity = new PictureBox();
             meteor.SetSpeed(2);
+            meteor.PB_Entity.Size = new Size(35, 35);
             meteor.PB_Entity.Image = Properties.Resources.asteroid_small;
             meteor.PB_Entity.Visible = true;
             meteor.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
