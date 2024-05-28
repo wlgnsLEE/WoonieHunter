@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using System.Media;
 using System.Timers;
+using System.IO;
 
 namespace WoonieHunter
 {
@@ -25,11 +26,17 @@ namespace WoonieHunter
         private bool isRightPressed = false;
         private bool isUpPressed = false;
         private bool isDownPressed = false;
+        private bool isP_Pressed = false;
         private bool canshot = true;
         private int bullettimmer = 0;
         private int skilltimer = 0;
         private int skillcount = 3;
         private bool canuseskill = true;
+        private int score = 0;
+        Label lbScoreText = new Label();
+        Label lbScore = new Label();
+        
+
 
         private System.Timers.Timer tmr_bgm;
 
@@ -76,6 +83,24 @@ namespace WoonieHunter
             // 인게임 배경화면
             InitBackGround1();
             InitBackGround2();
+
+            // 스코어
+            
+            lbScoreText.Font = new Font("Arial", 30, FontStyle.Bold);
+            lbScoreText.Width = 150;
+            lbScoreText.Height = 50;
+            lbScoreText.Text = score.ToString();
+            lbScoreText.Location = new System.Drawing.Point(175, 0);
+            lbScoreText.ForeColor = Color.White;
+            lbScoreText.Parent = this;
+
+            lbScore.Font = new Font("Arial", 30, FontStyle.Bold);
+            lbScore.Width = 200;
+            lbScore.Height = 50;
+            lbScore.Text = "SCORE";
+            
+            lbScore.ForeColor = Color.White;
+            lbScore.Parent = this;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -166,20 +191,52 @@ namespace WoonieHunter
             MoveBackGround1(1);
             MoveBackGround2(2);
 
-            // 배경 메테오
-            for (int i = 0; i < meteors.Count; i++)
+            // 점수
+            lbScoreText.Text =  score.ToString();
+
+
+            // 랭킹 입력용
+            if (isP_Pressed)
             {
-                meteors[i].PB_Entity.Top += meteors[i].GetSpeed();
-
-                if (meteors[i].PB_Entity.Bottom > 1000)
+                isP_Pressed = false;
+                string userName;
+                Form3 nameForm = new Form3();
+         
+                if (nameForm.ShowDialog() == DialogResult.OK)
                 {
-                    Controls.Remove(meteors[i].PB_Entity);
+                    userName = nameForm.UserName;
+                    // userName 변수에 Form3에서 입력한 이름이 저장됨
 
-                    meteors.RemoveAt(i);
+                    string filePath1 = "scores.txt";
 
-                    i--;
+                    using (StreamWriter writer = new StreamWriter(filePath1, true))
+                    {
+                        writer.WriteLine(score + " " + userName);
+                    }
+                }
+
+                string filePath = "scores.txt";
+                
+                if (File.Exists(filePath)) // 파일이 존재 할 때
+                {
+                    // scores.txt 파일을 읽어와서 List에 저장
+                    List<string> lines = File.ReadAllLines("scores.txt").ToList();
+
+                    // List를 점수에 따라 내림차순으로 정렬
+                    lines.Sort((x, y) => Convert.ToInt32(y.Split(' ')[0]).CompareTo(Convert.ToInt32(x.Split(' ')[0])));
+
+                    // 정렬된 List를 scores.txt 파일에 다시 쓰기
+                    using (StreamWriter writer = new StreamWriter("scores.txt"))
+                    {
+                        foreach (string line in lines)
+                        {
+                            writer.WriteLine(line);
+                        }
+                    }
+
                 }
             }
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -233,6 +290,13 @@ namespace WoonieHunter
                     canuseskill = false;
                 }
             }
+
+            // 게임 강제 종료 점수 기록용
+            if (e.KeyCode == Keys.P)
+            {
+                isP_Pressed = true;
+            }
+
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -245,6 +309,10 @@ namespace WoonieHunter
                 isUpPressed = false;
             else if (e.KeyCode == Keys.Down)
                 isDownPressed = false;
+
+            // 랭킹입력용 @@@@@@
+            if (e.KeyCode == Keys.P) 
+                isP_Pressed = false;
         }
 
         private void tmr_bullet_Tick(object sender, EventArgs e)
@@ -275,6 +343,7 @@ namespace WoonieHunter
                             this.Controls.Remove(enemies[j].PB_Entity);//적 삭제
                             enemies.RemoveAt(j);
                             j--;
+                            score = score + 50;
                         }
                     }
                 }
@@ -340,14 +409,14 @@ namespace WoonieHunter
         public void InitBackGround1()
         {
             BackColor = Color.FromArgb(0, 0, 0);
-            background1.Image = Properties.Resources.bg_stars;
+            background1.Image = Properties.Resources.bg_back;
             background1.SizeMode = PictureBoxSizeMode.StretchImage;
             background1.Location = new Point(0, 0);
             background1.Width = Width;
             background1.Height = Height;
             background1.SendToBack();
 
-            background1_.Image = Properties.Resources.bg_stars;
+            background1_.Image = Properties.Resources.bg_back;
             background1_.SizeMode = PictureBoxSizeMode.StretchImage;
             background1_.Location = new Point(0, 1000);
             background1_.Width = Width;

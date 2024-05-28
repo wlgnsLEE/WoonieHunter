@@ -51,5 +51,11 @@ namespace WoonieHunter
             Form1 game = new Form1();
             game.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form2 rank = new Form2();
+            rank.Show();
+        }
     }
 }

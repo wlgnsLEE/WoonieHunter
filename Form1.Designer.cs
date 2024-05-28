@@ -32,14 +32,14 @@
             this.tmr = new System.Windows.Forms.Timer(this.components);
             this.tmr_bullet = new System.Windows.Forms.Timer(this.components);
             this.tmr_spawn_enemy = new System.Windows.Forms.Timer(this.components);
+            this.background2_ = new System.Windows.Forms.PictureBox();
             this.background2 = new System.Windows.Forms.PictureBox();
             this.background1 = new System.Windows.Forms.PictureBox();
             this.background1_ = new System.Windows.Forms.PictureBox();
-            this.background2_ = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.background2_)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.background2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.background1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.background1_)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.background2_)).BeginInit();
             this.SuspendLayout();
             // 
             // tmr
@@ -56,6 +56,15 @@
             // 
             this.tmr_spawn_enemy.Interval = 1000;
             this.tmr_spawn_enemy.Tick += new System.EventHandler(this.tmr_spawn_enemy_Tick);
+            // 
+            // background2_
+            // 
+            this.background2_.Image = global::WoonieHunter.Properties.Resources.bg_planet2;
+            this.background2_.Location = new System.Drawing.Point(197, 13);
+            this.background2_.Name = "background2_";
+            this.background2_.Size = new System.Drawing.Size(72, 272);
+            this.background2_.TabIndex = 1;
+            this.background2_.TabStop = false;
             // 
             // background2
             // 
@@ -84,15 +93,6 @@
             this.background1_.TabIndex = 0;
             this.background1_.TabStop = false;
             // 
-            // background2_
-            // 
-            this.background2_.Image = global::WoonieHunter.Properties.Resources.bg_planet2;
-            this.background2_.Location = new System.Drawing.Point(197, 13);
-            this.background2_.Name = "background2_";
-            this.background2_.Size = new System.Drawing.Size(72, 272);
-            this.background2_.TabIndex = 1;
-            this.background2_.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -107,10 +107,10 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
+            ((System.ComponentModel.ISupportInitialize)(this.background2_)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.background2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.background1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.background1_)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.background2_)).EndInit();
             this.ResumeLayout(false);
 
         }
