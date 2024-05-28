@@ -10,7 +10,7 @@ namespace WoonieHunter
     internal class Entity
     {
         public PictureBox PB_Entity;
-        private int life;
+        public int life;
         private int entityX;
         private int entityY;
         private int speed;
@@ -56,8 +56,8 @@ namespace WoonieHunter
         }
     }
 
-    internal class Enemy : Entity
+    internal class boss : Entity
     {
-        
+        public int hp = 100;
     }
 }
