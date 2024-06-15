@@ -59,6 +59,6 @@ namespace WoonieHunter
 
     internal class boss : Entity
     {
-        public int hp = 75;
+        public int hp = 10;
     }
 }

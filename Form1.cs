@@ -268,7 +268,17 @@ namespace WoonieHunter
 
                     i--;
                 }
-                
+                else if (IsCollided(player.PB_Entity, enemies[i].PB_Entity)) // 충돌 검사
+                {
+                    player.life--;
+
+                    HandlePlayerCollision();
+
+                    Controls.Remove(enemies[i].PB_Entity);
+                    enemies.RemoveAt(i);
+                    i--;
+                }
+
             }
 
             for (int i = 0; i < bossbullet.Count; i++)
@@ -282,7 +292,16 @@ namespace WoonieHunter
                     bossbullet.RemoveAt(i);
 
                     i--;
-                } 
+                }
+                else if (IsCollided(player.PB_Entity, bossbullet[i].PB_Entity))
+                {
+                    player.life--;
+
+                    HandlePlayerCollision();
+                    Controls.Remove(bossbullet[i].PB_Entity);
+                    bossbullet.RemoveAt(i);
+                    i--;
+                }
             }
 
             for (int i = 0; i < items.Count; i++)
@@ -416,11 +435,6 @@ namespace WoonieHunter
                 HPUI[0].Visible = false;
                 HPUI[1].Visible = false;
                 HPUI[2].Visible = false;
-            }
-            if (player.life <= 0 && !gameOver)
-            {
-                gameOver = true;
-                Controls.Remove(player.PB_Entity);
 
                 tmr.Stop();
                 tmr_bullet.Stop();
@@ -428,10 +442,46 @@ namespace WoonieHunter
                 timer.Stop();
                 // Optionally, stop the game or show a game over message
                 MessageBox.Show("게임 오버!");
-                
 
+                string userName;
+                Form3 nameForm = new Form3();
+
+                if (nameForm.ShowDialog() == DialogResult.OK)
+                {
+                    userName = nameForm.UserName;
+                    // userName 변수에 Form3에서 입력한 이름이 저장됨
+
+                    string filePath1 = "scores.txt";
+
+                    using (StreamWriter writer = new StreamWriter(filePath1, true))
+                    {
+                        writer.WriteLine(score + " " + userName);
+                    }
+                }
+
+                string filePath = "scores.txt";
+
+                if (File.Exists(filePath)) // 파일이 존재 할 때
+                {
+                    // scores.txt 파일을 읽어와서 List에 저장
+                    List<string> lines = File.ReadAllLines("scores.txt").ToList();
+
+                    // List를 점수에 따라 내림차순으로 정렬
+                    lines.Sort((x, y) => Convert.ToInt32(y.Split(' ')[0]).CompareTo(Convert.ToInt32(x.Split(' ')[0])));
+
+                    // 정렬된 List를 scores.txt 파일에 다시 쓰기
+                    using (StreamWriter writer = new StreamWriter("scores.txt"))
+                    {
+                        foreach (string line in lines)
+                        {
+                            writer.WriteLine(line);
+                        }
+                    }
+
+                }
                 this.Close();
             }
+           
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -556,7 +606,7 @@ namespace WoonieHunter
 
                         Boss[0].hp--;
 
-                        newHPBarWidth = (int)(200 * (Boss[0].hp / 75.0));
+                        newHPBarWidth = (int)(200 * (Boss[0].hp / 10.0));
                         bossHPBar.Size = new Size(newHPBarWidth, 20);
 
                         if (Boss[0].hp < 0)//보스 hp가 0이되면 제거
@@ -564,6 +614,14 @@ namespace WoonieHunter
                             score = score + 500;
                             this.Controls.Remove(Boss[0].PB_Entity);
                             Boss.RemoveAt(0);
+
+                            tmr.Stop();
+                            tmr_bullet.Stop();
+                            tmr_spawn_enemy.Stop();
+                            timer.Stop();
+
+                            MessageBox.Show("게임 클리어!");
+
                             string userName;
                             Form3 nameForm = new Form3();
 
@@ -600,6 +658,7 @@ namespace WoonieHunter
                                 }
 
                             }
+                            this.Close();
                         }
                     }
                 }
@@ -657,7 +716,7 @@ namespace WoonieHunter
 
                         Boss[0].hp -= 5;
 
-                        newHPBarWidth = (int)(200 * (Boss[0].hp / 75.0));
+                        newHPBarWidth = (int)(200 * (Boss[0].hp / 10.0));
                         bossHPBar.Size = new Size(newHPBarWidth, 20);
 
                         if (Boss[0].hp < 0)//보스 hp가 0이되면 제거
@@ -665,6 +724,14 @@ namespace WoonieHunter
                             score = score + 500;
                             this.Controls.Remove(Boss[0].PB_Entity);
                             Boss.RemoveAt(0);
+
+                            tmr.Stop();
+                            tmr_bullet.Stop();
+                            tmr_spawn_enemy.Stop();
+                            timer.Stop();
+
+                            MessageBox.Show("게임 클리어!");
+
                             string userName;
                             Form3 nameForm = new Form3();
 
@@ -701,6 +768,8 @@ namespace WoonieHunter
                                 }
 
                             }
+
+                            this.Close();
                         }
                     }
                 }
@@ -725,6 +794,10 @@ namespace WoonieHunter
             {
                 if (player.Left  <= enemy.Right && player.Right  >= enemy.Left)
                 {
+                    if (player.Top < enemy.Top)
+                    {
+                        return false;
+                    }
                     return true;
                 }
                 else

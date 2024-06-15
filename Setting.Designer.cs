@@ -47,88 +47,88 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(154, 103);
+            this.label1.Location = new System.Drawing.Point(176, 129);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.Size = new System.Drawing.Size(37, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "음량";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(142, 146);
+            this.label2.Location = new System.Drawing.Point(162, 182);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 12);
+            this.label2.Size = new System.Drawing.Size(57, 15);
             this.label2.TabIndex = 0;
-            this.label2.Text = "운석 속도";
+            this.label2.Text = "적 속도";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(130, 187);
+            this.label3.Location = new System.Drawing.Point(149, 234);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 12);
+            this.label3.Size = new System.Drawing.Size(102, 15);
             this.label3.TabIndex = 0;
             this.label3.Text = "플레이어 속도";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(142, 228);
+            this.label4.Location = new System.Drawing.Point(162, 285);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 12);
+            this.label4.Size = new System.Drawing.Size(72, 15);
             this.label4.TabIndex = 0;
             this.label4.Text = "스킬 개수";
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(277, 96);
+            this.trackBar1.Location = new System.Drawing.Point(317, 120);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(136, 45);
+            this.trackBar1.Size = new System.Drawing.Size(155, 56);
             this.trackBar1.TabIndex = 2;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // trackBar2
             // 
-            this.trackBar2.Location = new System.Drawing.Point(277, 146);
+            this.trackBar2.Location = new System.Drawing.Point(317, 182);
             this.trackBar2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar2.Minimum = 1;
             this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(136, 45);
+            this.trackBar2.Size = new System.Drawing.Size(155, 56);
             this.trackBar2.TabIndex = 5;
             this.trackBar2.Value = 5;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             // 
             // trackBar3
             // 
-            this.trackBar3.Location = new System.Drawing.Point(277, 187);
+            this.trackBar3.Location = new System.Drawing.Point(317, 234);
             this.trackBar3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar3.Minimum = 1;
             this.trackBar3.Name = "trackBar3";
-            this.trackBar3.Size = new System.Drawing.Size(136, 45);
+            this.trackBar3.Size = new System.Drawing.Size(155, 56);
             this.trackBar3.TabIndex = 6;
             this.trackBar3.Value = 5;
             this.trackBar3.Scroll += new System.EventHandler(this.trackBar4_Scroll);
             // 
             // trackBar4
             // 
-            this.trackBar4.Location = new System.Drawing.Point(277, 228);
+            this.trackBar4.Location = new System.Drawing.Point(317, 285);
             this.trackBar4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar4.Maximum = 5;
             this.trackBar4.Minimum = 1;
             this.trackBar4.Name = "trackBar4";
-            this.trackBar4.Size = new System.Drawing.Size(136, 45);
+            this.trackBar4.Size = new System.Drawing.Size(155, 56);
             this.trackBar4.TabIndex = 7;
             this.trackBar4.Value = 3;
             this.trackBar4.Scroll += new System.EventHandler(this.trackBar4_Scroll_1);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(296, 296);
+            this.button2.Location = new System.Drawing.Point(338, 370);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 30);
+            this.button2.Size = new System.Drawing.Size(94, 38);
             this.button2.TabIndex = 9;
             this.button2.Text = "닫기";
             this.button2.UseVisualStyleBackColor = true;
@@ -136,10 +136,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(157, 296);
+            this.button1.Location = new System.Drawing.Point(179, 370);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 30);
+            this.button1.Size = new System.Drawing.Size(94, 38);
             this.button1.TabIndex = 10;
             this.button1.Text = "확인";
             this.button1.UseVisualStyleBackColor = true;
@@ -147,9 +147,9 @@
             // 
             // Setting
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 360);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.trackBar4);
