@@ -16,6 +16,10 @@ namespace WoonieHunter
     {
         private SoundPlayer soundPlayer;
         private System.Timers.Timer timer;
+        int gamevolume=5;
+        int chspeed=5;
+        int enemyspeed = 5;
+        int skillnum = 1;
         public Menu()
         {
             InitializeComponent();
@@ -50,7 +54,7 @@ namespace WoonieHunter
         private void button1_Click_1(object sender, EventArgs e)
         {
             soundPlayer.Stop();
-            Form1 game = new Form1();
+            Form1 game = new Form1(chspeed,enemyspeed,skillnum);
             game.Show();
         }
 
@@ -60,10 +64,32 @@ namespace WoonieHunter
             rank.Show();
         }
 
+        private void Dialog_Changed(object sender, EventArgs e)
+        {
+            
+            
+        }
         private void Setting_Click(object sender, EventArgs e)
         {
-            Setting setting = new Setting();
+            Setting setting = new Setting(gamevolume,chspeed,enemyspeed,skillnum);
+            setting.ValuesUpdated += Setting_ValuesUpdated;
             setting.Show();
+            
+        }
+
+        private void Setting_ValuesUpdated(int newgamevolume, int newchspeed, int newenemyspeed, int newskillnum)
+        {
+            gamevolume = newgamevolume;
+            chspeed = newchspeed;
+            enemyspeed = newenemyspeed;
+            skillnum=newskillnum;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form4 tutorial = new Form4();
+            tutorial.Show();
         }
     }
 }

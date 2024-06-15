@@ -14,29 +14,39 @@ namespace WoonieHunter
 {
     public partial class Setting : Form
     {
-        public Form1 form1;
+       
+        int gamevolume;
+        int chspeed;
+        int enemyspeed;
+        int skillnum;
 
-        public Setting()
+        public event Action<int, int, int, int> ValuesUpdated;
+        public Setting(int gv, int es, int cs, int sn)
         {
             InitializeComponent();
 
             this.MinimumSize = new Size(600, 600);
             this.MaximumSize = new Size(600, 600);
 
-            form1 = new Form1();
-
             //Win32.SetSoundVolume(5);  초기 볼륨 설정 (0~10)
 
             trackBar1.Value = Volume.GetSoundVolume();
-            trackBar2.Value = 5;
+            trackBar2.Value = es;
+            trackBar3.Value = cs;
+            trackBar4.Value = sn;
+
+            gamevolume = trackBar1.Value;
+            chspeed=trackBar3.Value;
+            enemyspeed=trackBar2.Value;
+            skillnum=trackBar4.Value;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            int volume;
-            volume = trackBar1.Value;
+           
+            gamevolume = trackBar1.Value;
 
-            Volume.SetSoundVolume(volume);
+            Volume.SetSoundVolume(gamevolume);
         }
         public class Volume
         {
@@ -76,11 +86,13 @@ namespace WoonieHunter
 
        private void button1_Click(object sender, EventArgs e)
         {
-            Form1 form2 = new Form1();
-            form2.setenemySpeed(trackBar2.Value);
-            form2.setSkillCount(trackBar3.Value);
-            form2.setPlayerSpeed(trackBar4.Value);
-            form2.Show();
+            gamevolume = trackBar1.Value;
+            enemyspeed = trackBar2.Value;
+            chspeed = trackBar3.Value;
+            skillnum = trackBar4.Value;
+
+            ValuesUpdated.Invoke(gamevolume,enemyspeed,chspeed,skillnum);
+
             this.Close();
         }
 
@@ -91,7 +103,7 @@ namespace WoonieHunter
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
-
+            
         }
 
         private void Setting_Load(object sender, EventArgs e)
@@ -100,6 +112,11 @@ namespace WoonieHunter
         }
 
         private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar4_Scroll_1(object sender, EventArgs e)
         {
 
         }

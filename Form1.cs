@@ -68,23 +68,13 @@ namespace WoonieHunter
         private SoundPlayer soundPlayer;
         private System.Timers.Timer timer;
 
-        public void setPlayerSpeed(int speed)
-        {
-            this.playerSpeed = speed;
-        }
-        public void setenemySpeed(int speed)
-        {
-            this.enemySpeed = speed;
-        }
-        public void setSkillCount(int count)
-        {
-            this.skillcount = count;
-
-        }
-
-        public Form1()
+        public Form1(int chspeed,int enemyspeed, int skillnum)
         {
             InitializeComponent();
+
+            this.skillcount=skillnum;
+            this.playerSpeed = chspeed;
+            this.enemySpeed = enemyspeed;
 
             this.DoubleBuffered = true; // 화면 깜빡임 방지
             this.backgroundY = 0;
@@ -278,15 +268,7 @@ namespace WoonieHunter
 
                     i--;
                 }
-                else if (IsCollided(player.PB_Entity, enemies[i].PB_Entity) ) // 충돌 검사
-                {
-                    player.life--;
-
-                    HandlePlayerCollision();
-                    Controls.Remove(enemies[i].PB_Entity);
-                    enemies.RemoveAt(i);
-                    i--;
-                }
+                
             }
 
             for (int i = 0; i < bossbullet.Count; i++)
@@ -300,15 +282,7 @@ namespace WoonieHunter
                     bossbullet.RemoveAt(i);
 
                     i--;
-                } else if(IsCollided(player.PB_Entity, bossbullet[i].PB_Entity))
-                {
-                    player.life--;
-
-                    HandlePlayerCollision();
-                    Controls.Remove(bossbullet[i].PB_Entity);
-                    bossbullet.RemoveAt(i);
-                    i--;//
-                }
+                } 
             }
 
             for (int i = 0; i < items.Count; i++)
@@ -749,7 +723,7 @@ namespace WoonieHunter
         {
             if (player.Top + 3 <= enemy.Bottom && enemy.Bottom - 3 >= player.Top)
             {
-                if (player.Left + 5 <= enemy.Right && player.Right - 5 >= enemy.Left)
+                if (player.Left  <= enemy.Right && player.Right  >= enemy.Left)
                 {
                     return true;
                 }
