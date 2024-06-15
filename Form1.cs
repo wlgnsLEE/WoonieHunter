@@ -55,7 +55,8 @@ namespace WoonieHunter
         private List<PictureBox> HPUI;
         private int[] bpattern1 = { 10, 130, 250, 370, 490, 610, 730 };
         private int[] bpattern2 = { 750, 630, 510, 390, 270, 150, 30 };
-        Label boss_lb = new Label();
+        PictureBox boss_lb = new PictureBox();
+
         System.Windows.Forms.Timer bossSpawnTimer = new System.Windows.Forms.Timer();
         //체력
         PictureBox bossHPBarBG = new PictureBox();
@@ -914,13 +915,11 @@ namespace WoonieHunter
 
 
             // 보스 출현 문구 
-            boss_lb.Font = new Font("AniMe Matrix - MB_EN", 90, FontStyle.Bold);
+            boss_lb.Image = Properties.Resources.warning;
             boss_lb.Width = 800;
             boss_lb.Height = 200;
-            boss_lb.Text = "WARNING";
             boss_lb.Location = new System.Drawing.Point(30, 250);
             boss_lb.BackColor = Color.Transparent;
-            boss_lb.ForeColor = Color.Red;
             boss_lb.Parent = this;
             boss_lb.BringToFront();
 

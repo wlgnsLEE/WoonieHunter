@@ -12,8 +12,7 @@ namespace WoonieHunter
 {
     public partial class Form4 : Form
     {
-        Label text1 = new Label();
-        Label text2 = new Label();
+        PictureBox text1 = new PictureBox();
         private List<PictureBox> bullets;
         private List<PictureBox> skills;
         Entity player;
@@ -25,25 +24,14 @@ namespace WoonieHunter
         {
             InitializeComponent();
 
-            text1.Font = new Font("AniMe Matrix - MB_EN", 20, FontStyle.Bold);
+            text1.Image = Properties.Resources.tuto;
             text1.Width = 400;
-            text1.Height = 50;
-            text1.Text = "이동 : → ← ↑ ↓";
+            text1.Height = 100;
             text1.Location = new System.Drawing.Point(30, 50);
             text1.BackColor = Color.Transparent;
-            text1.ForeColor = Color.Black;
             text1.Parent = this;
-            text1.SendToBack();
+            
 
-            text2.Font = new Font("AniMe Matrix - MB_EN", 20, FontStyle.Bold);
-            text2.Width = 400;
-            text2.Height = 50;
-            text2.Text = "공격 : SPACE BAR  스킬 : S ";
-            text2.Location = new System.Drawing.Point(30, 100);
-            text2.BackColor = Color.Transparent;
-            text2.ForeColor = Color.Black;
-            text2.Parent = this;
-            text2.SendToBack();
 
             player = new Entity();
             player.PB_Entity.Image = Properties.Resources.character;
@@ -67,6 +55,7 @@ namespace WoonieHunter
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            text1.SendToBack();
             int X = player.GetEntityX();
             int Y = player.GetEntityY();
             int speed = 5;
@@ -181,6 +170,11 @@ namespace WoonieHunter
                 isUpPressed = false;
             else if (e.KeyCode == Keys.Down)
                 isDownPressed = false;
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

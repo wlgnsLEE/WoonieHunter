@@ -121,8 +121,8 @@
   <data name="skill" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\skill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bg-planet2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg-planet2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bg-back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg-back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_10__Track_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\10. Track 10.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -130,17 +130,17 @@
   <data name="asteroid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\asteroid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="bg-planet2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg-planet2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="character" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\character.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="asteroid-small" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\asteroid-small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bossbullet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bullet2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bullet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bullet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bg-back" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg-back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_1__Track_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1. Track 1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -148,34 +148,40 @@
   <data name="bg-planet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bg-planet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bg-stars" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg-stars.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="item1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\item.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="boss" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\boss.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bg-stars1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bg-stars1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bossbullet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bullet2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="enemy1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\enemy1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="enemy2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\enemy2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="enemy3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\enemy3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="heart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\heart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="asteroid-small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\asteroid-small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wheel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wheel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="item1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\item.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg-stars1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg-stars1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="heart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\heart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg-stars" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bg-stars.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="enemy2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\enemy2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tuto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tuto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

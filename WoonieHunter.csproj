@@ -133,6 +133,7 @@
     <None Include="Resources\character.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\warning.png" />
     <None Include="Resources\wheel.png" />
     <None Include="Resources\bg-stars1.png" />
     <Content Include="Resources\boss.png" />
@@ -144,6 +145,7 @@
     <None Include="Resources\Item.png" />
     <None Include="Resources\mini-heart.png" />
     <None Include="Resources\heart.png" />
+    <None Include="Resources\tuto.png" />
     <Content Include="Resources\upgradebullet.png" />
     <None Include="Resources\asteroid.png" />
     <None Include="Resources\bg-stars.png" />

@@ -44,6 +44,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Form4";
             this.Text = "Form4";
+            this.Load += new System.EventHandler(this.Form4_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form4_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form4_KeyUp);
             this.ResumeLayout(false);

@@ -61,7 +61,7 @@
             // 
             // background2_
             // 
-            this.background2_.Image = global::WoonieHunter.Properties.Resources.bg_planet2;
+            this.background2_.Image = global::WoonieHunter.Properties.Resources.tuto;
             this.background2_.Location = new System.Drawing.Point(197, 13);
             this.background2_.Name = "background2_";
             this.background2_.Size = new System.Drawing.Size(72, 272);

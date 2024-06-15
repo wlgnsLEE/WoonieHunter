@@ -109,3 +109,5 @@ C:\Users\82108\Source\Repos\WoonieHunter3\obj\Debug\WoonieHunter.csproj.Generate
 C:\Users\82108\Source\Repos\WoonieHunter3\obj\Debug\WoonieHunter.csproj.CoreCompileInputs.cache
 C:\Users\82108\Source\Repos\WoonieHunter3\obj\Debug\WoonieHunter.exe
 C:\Users\82108\Source\Repos\WoonieHunter3\obj\Debug\WoonieHunter.pdb
+C:\Users\WEB\Source\Repos\WoonieHunter\obj\Debug\WoonieHunter.Form4.resources
+C:\Users\WEB\Source\Repos\WoonieHunter\obj\Debug\WoonieHunter.Setting.resources
