@@ -64,3 +64,17 @@ C:\Users\USER\Source\Repos\WoonieHunterup\obj\Debug\WoonieHunter.csproj.Generate
 C:\Users\USER\Source\Repos\WoonieHunterup\obj\Debug\WoonieHunter.csproj.CoreCompileInputs.cache
 C:\Users\USER\Source\Repos\WoonieHunterup\obj\Debug\WoonieHunter.exe
 C:\Users\USER\Source\Repos\WoonieHunterup\obj\Debug\WoonieHunter.pdb
+C:\Users\82108\Source\Repos\WoonieHunter2\bin\Debug\WoonieHunter.exe.config
+C:\Users\82108\Source\Repos\WoonieHunter2\bin\Debug\WoonieHunter.exe
+C:\Users\82108\Source\Repos\WoonieHunter2\bin\Debug\WoonieHunter.pdb
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.csproj.AssemblyReference.cache
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.Form1.resources
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.Form2.resources
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.Form3.resources
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.Menu.resources
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.Properties.Resources.resources
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.csproj.GenerateResource.cache
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.csproj.CoreCompileInputs.cache
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.exe
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.pdb
+C:\Users\82108\Source\Repos\WoonieHunter2\obj\Debug\WoonieHunter.Setting.resources

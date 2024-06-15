@@ -26,6 +26,8 @@ namespace WoonieHunter
             soundPlayer = new SoundPlayer();
             timer = new System.Timers.Timer();
 
+            Setting.Volume.SetSoundVolume(5);
+
             // 타이머 설정
             timer.Interval = 114000;
             timer.Elapsed += Timer_Elapsed;
@@ -56,6 +58,12 @@ namespace WoonieHunter
         {
             Form2 rank = new Form2();
             rank.Show();
+        }
+
+        private void Setting_Click(object sender, EventArgs e)
+        {
+            Setting setting = new Setting();
+            setting.Show();
         }
     }
 }

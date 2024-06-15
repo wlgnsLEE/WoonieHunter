@@ -46,6 +46,10 @@ namespace WoonieHunter
         private bool canuseskill = true;
         private bool bossmove = true;
         private int score = 0;
+        private int enemySpeed = 5;
+        private int playerSpeed = 5;
+        private bool gameOver = false; // Game over 상태
+
         Label lbScoreText = new Label();
         Label lbScore = new Label();
         private List<PictureBox> HPUI;
@@ -63,6 +67,20 @@ namespace WoonieHunter
 
         private SoundPlayer soundPlayer;
         private System.Timers.Timer timer;
+
+        public void setPlayerSpeed(int speed)
+        {
+            this.playerSpeed = speed;
+        }
+        public void setenemySpeed(int speed)
+        {
+            this.enemySpeed = speed;
+        }
+        public void setSkillCount(int count)
+        {
+            this.skillcount = count;
+
+        }
 
         public Form1()
         {
@@ -202,6 +220,7 @@ namespace WoonieHunter
             background1.SendToBack();
             background1_.SendToBack();*/
 
+            player.SetSpeed(playerSpeed);
             int X = player.GetEntityX();
             int Y = player.GetEntityY();
             int speed = player.GetSpeed();
@@ -244,27 +263,7 @@ namespace WoonieHunter
             bullettimmer++;
             skilltimer++;
 
-            if (player.life == 3)
-            {
-                HPUI[0].Visible = true;
-                HPUI[1].Visible = true;
-                HPUI[2].Visible = true;
-            }else if (player.life == 2)
-            {
-                HPUI[0].Visible=true;
-                HPUI[1].Visible=true;
-                HPUI[2].Visible=false;
-            }else if(player.life == 1)
-            {
-                HPUI[0].Visible = true;
-                HPUI[1].Visible = false;
-                HPUI[2].Visible = false;
-            }else if (player.life == 0)
-            {
-                HPUI[0].Visible = false;
-                HPUI[1].Visible = false;
-                HPUI[2].Visible = false;
-            }
+           
 
 
             for (int i = 0; i < enemies.Count; i++)
@@ -277,6 +276,15 @@ namespace WoonieHunter
 
                     enemies.RemoveAt(i);
 
+                    i--;
+                }
+                else if (IsCollided(player.PB_Entity, enemies[i].PB_Entity) ) // 충돌 검사
+                {
+                    player.life--;
+
+                    HandlePlayerCollision();
+                    Controls.Remove(enemies[i].PB_Entity);
+                    enemies.RemoveAt(i);
                     i--;
                 }
             }
@@ -292,6 +300,14 @@ namespace WoonieHunter
                     bossbullet.RemoveAt(i);
 
                     i--;
+                } else if(IsCollided(player.PB_Entity, bossbullet[i].PB_Entity))
+                {
+                    player.life--;
+
+                    HandlePlayerCollision();
+                    Controls.Remove(bossbullet[i].PB_Entity);
+                    bossbullet.RemoveAt(i);
+                    i--;//
                 }
             }
 
@@ -400,6 +416,48 @@ namespace WoonieHunter
                 Boss[0].PB_Entity.Location = new System.Drawing.Point(Boss[0].GetEntityX(), Boss[0].GetEntityY());
             }
 
+        }
+        private void HandlePlayerCollision()
+        {
+            if (player.life == 3)
+            {
+                HPUI[0].Visible = true;
+                HPUI[1].Visible = true;
+                HPUI[2].Visible = true;
+            }
+            else if (player.life == 2)
+            {
+                HPUI[0].Visible = true;
+                HPUI[1].Visible = true;
+                HPUI[2].Visible = false;
+            }
+            else if (player.life == 1)
+            {
+                HPUI[0].Visible = true;
+                HPUI[1].Visible = false;
+                HPUI[2].Visible = false;
+            }
+            else if (player.life == 0)
+            {
+                HPUI[0].Visible = false;
+                HPUI[1].Visible = false;
+                HPUI[2].Visible = false;
+            }
+            if (player.life <= 0 && !gameOver)
+            {
+                gameOver = true;
+                Controls.Remove(player.PB_Entity);
+
+                tmr.Stop();
+                tmr_bullet.Stop();
+                tmr_spawn_enemy.Stop();
+                timer.Stop();
+                // Optionally, stop the game or show a game over message
+                MessageBox.Show("게임 오버!");
+                
+
+                this.Close();
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -687,6 +745,24 @@ namespace WoonieHunter
 
             return false;
         }
+        public bool IsCollided(PictureBox player, PictureBox enemy)//플레이어와 적과 충돌 검사
+        {
+            if (player.Top + 3 <= enemy.Bottom && enemy.Bottom - 3 >= player.Top)
+            {
+                if (player.Left + 5 <= enemy.Right && player.Right - 5 >= enemy.Left)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         private void create_enemy()
         {
@@ -699,7 +775,7 @@ namespace WoonieHunter
             int rand_enemy = generateRandom.Next(0, 3);
 
             Entity new_enemy = new Entity();
-            new_enemy.SetSpeed(5);
+            new_enemy.SetSpeed(enemySpeed);
             new_enemy.PB_Entity.Size = new Size(40, 40);
             new_enemy.PB_Entity.Image = enemy_images[rand_enemy];
             new_enemy.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
