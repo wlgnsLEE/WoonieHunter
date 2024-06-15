@@ -11,6 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using System.Media;
 using System.Timers;
 using System.IO;
+using System.Threading;
 
 namespace WoonieHunter
 {
@@ -49,6 +50,12 @@ namespace WoonieHunter
         private List<PictureBox> HPUI;
         private int[] bpattern1 = { 10, 130, 250, 370, 490, 610, 730 };
         private int[] bpattern2 = { 750, 630, 510, 390, 270, 150, 30 };
+        Label boss_lb = new Label();
+        System.Windows.Forms.Timer bossSpawnTimer = new System.Windows.Forms.Timer();
+        //체력
+        PictureBox bossHPBarBG = new PictureBox();
+        PictureBox bossHPBar = new PictureBox();
+        int newHPBarWidth = 0;
 
 
         private System.Timers.Timer tmr_bgm;
@@ -514,10 +521,51 @@ namespace WoonieHunter
                         i--;
 
                         Boss[0].hp--;
+
+                        newHPBarWidth = (int)(200 * (Boss[0].hp / 75.0));
+                        bossHPBar.Size = new Size(newHPBarWidth, 20);
+
                         if (Boss[0].hp < 0)//보스 hp가 0이되면 제거
                         {
+                            score = score + 500;
                             this.Controls.Remove(Boss[0].PB_Entity);
                             Boss.RemoveAt(0);
+                            string userName;
+                            Form3 nameForm = new Form3();
+
+                            if (nameForm.ShowDialog() == DialogResult.OK)
+                            {
+                                userName = nameForm.UserName;
+                                // userName 변수에 Form3에서 입력한 이름이 저장됨
+
+                                string filePath1 = "scores.txt";
+
+                                using (StreamWriter writer = new StreamWriter(filePath1, true))
+                                {
+                                    writer.WriteLine(score + " " + userName);
+                                }
+                            }
+
+                            string filePath = "scores.txt";
+
+                            if (File.Exists(filePath)) // 파일이 존재 할 때
+                            {
+                                // scores.txt 파일을 읽어와서 List에 저장
+                                List<string> lines = File.ReadAllLines("scores.txt").ToList();
+
+                                // List를 점수에 따라 내림차순으로 정렬
+                                lines.Sort((x, y) => Convert.ToInt32(y.Split(' ')[0]).CompareTo(Convert.ToInt32(x.Split(' ')[0])));
+
+                                // 정렬된 List를 scores.txt 파일에 다시 쓰기
+                                using (StreamWriter writer = new StreamWriter("scores.txt"))
+                                {
+                                    foreach (string line in lines)
+                                    {
+                                        writer.WriteLine(line);
+                                    }
+                                }
+
+                            }
                         }
                     }
                 }
@@ -574,10 +622,51 @@ namespace WoonieHunter
                         i--;
 
                         Boss[0].hp -= 5;
+
+                        newHPBarWidth = (int)(200 * (Boss[0].hp / 75.0));
+                        bossHPBar.Size = new Size(newHPBarWidth, 20);
+
                         if (Boss[0].hp < 0)//보스 hp가 0이되면 제거
                         {
+                            score = score + 500;
                             this.Controls.Remove(Boss[0].PB_Entity);
                             Boss.RemoveAt(0);
+                            string userName;
+                            Form3 nameForm = new Form3();
+
+                            if (nameForm.ShowDialog() == DialogResult.OK)
+                            {
+                                userName = nameForm.UserName;
+                                // userName 변수에 Form3에서 입력한 이름이 저장됨
+
+                                string filePath1 = "scores.txt";
+
+                                using (StreamWriter writer = new StreamWriter(filePath1, true))
+                                {
+                                    writer.WriteLine(score + " " + userName);
+                                }
+                            }
+
+                            string filePath = "scores.txt";
+
+                            if (File.Exists(filePath)) // 파일이 존재 할 때
+                            {
+                                // scores.txt 파일을 읽어와서 List에 저장
+                                List<string> lines = File.ReadAllLines("scores.txt").ToList();
+
+                                // List를 점수에 따라 내림차순으로 정렬
+                                lines.Sort((x, y) => Convert.ToInt32(y.Split(' ')[0]).CompareTo(Convert.ToInt32(x.Split(' ')[0])));
+
+                                // 정렬된 List를 scores.txt 파일에 다시 쓰기
+                                using (StreamWriter writer = new StreamWriter("scores.txt"))
+                                {
+                                    foreach (string line in lines)
+                                    {
+                                        writer.WriteLine(line);
+                                    }
+                                }
+
+                            }
                         }
                     }
                 }
@@ -687,8 +776,8 @@ namespace WoonieHunter
             new_boss.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             new_boss.PB_Entity.Image = Properties.Resources.boss;
             new_boss.PB_Entity.Visible = true;
-            new_boss.PB_Entity.Location = new System.Drawing.Point(300, 25);
-            new_boss.SetEntityY(25);
+            new_boss.PB_Entity.Location = new System.Drawing.Point(300, 65);
+            new_boss.SetEntityY(65);
             new_boss.SetSpeed(0);
             new_boss.PB_Entity.BringToFront();
             new_boss.PB_Entity.BackColor = Color.Transparent;
@@ -696,7 +785,43 @@ namespace WoonieHunter
             Boss.Add(new_boss);
             Controls.Add(new_boss.PB_Entity);
 
+
+            // 보스 출현 문구 
+            boss_lb.Font = new Font("AniMe Matrix - MB_EN", 90, FontStyle.Bold);
+            boss_lb.Width = 800;
+            boss_lb.Height = 200;
+            boss_lb.Text = "WARNING";
+            boss_lb.Location = new System.Drawing.Point(30, 250);
+            boss_lb.BackColor = Color.Transparent;
+            boss_lb.ForeColor = Color.Red;
+            boss_lb.Parent = this;
+            boss_lb.BringToFront();
+
+            // 2초 후에 boss_lb 제거
+
+            bossSpawnTimer.Interval = 2000; // 2초
+            bossSpawnTimer.Tick += BossSpawnTimer_Tick;
+            bossSpawnTimer.Start();
+
+            //체력바
+            bossHPBar.Location = new Point(10, 40);
+            bossHPBar.Size = new Size(200, 20);
+            bossHPBar.BackColor = Color.Red;
+            this.Controls.Add(bossHPBar);
+
+            bossHPBarBG.Location = new Point(10, 40);
+            bossHPBarBG.Size = new Size(200, 20);
+            bossHPBarBG.BackColor = Color.Gray;
+            this.Controls.Add(bossHPBarBG);
+
         }
+        private void BossSpawnTimer_Tick(object sender, EventArgs e)
+        {
+            Controls.Remove(boss_lb);
+            bossSpawnTimer.Stop();
+        }
+
+    
 
         private void create_item()
         {
