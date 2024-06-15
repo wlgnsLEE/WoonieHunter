@@ -91,5 +91,10 @@ namespace WoonieHunter
             Form4 tutorial = new Form4();
             tutorial.Show();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
