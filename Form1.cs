@@ -23,6 +23,7 @@ namespace WoonieHunter
         private Image backgroundPlanet;
         //--------
         Entity player;
+        private Image[] enemy_images = { Properties.Resources.enemy1, Properties.Resources.enemy2, Properties.Resources.enemy3 };
         private List<Entity> enemies;
         private List<Entity> items;
         private List<PictureBox> bullets;
@@ -147,9 +148,10 @@ namespace WoonieHunter
             {
                 PictureBox Heart = new PictureBox();
                 Heart.Image = Properties.Resources.heart;
-                Heart.Size = new System.Drawing.Size(30, 30);
+                Heart.Size = new System.Drawing.Size(40, 40);
+                Heart.BackColor = Color.Transparent;
                 Heart.SizeMode = PictureBoxSizeMode.Zoom;
-                Heart.Location = new System.Drawing.Point(330 + i * 25, 20);
+                Heart.Location = new System.Drawing.Point(330 + i * 40, 20);
                 Heart.Visible = true;
 
                 HPUI.Add( Heart );
@@ -694,11 +696,13 @@ namespace WoonieHunter
 
             int rand_pos_x = generateRandom.Next(10, 790);
             int rand_pos_y = generateRandom.Next(0, 50);
+            int rand_enemy = generateRandom.Next(0, 3);
 
             Entity new_enemy = new Entity();
             new_enemy.SetSpeed(5);
-            new_enemy.PB_Entity.Size = new Size(35, 35);
-            new_enemy.PB_Entity.Image = Properties.Resources.asteroid;
+            new_enemy.PB_Entity.Size = new Size(40, 40);
+            new_enemy.PB_Entity.Image = enemy_images[rand_enemy];
+            new_enemy.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             new_enemy.PB_Entity.Visible = true;
             new_enemy.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
             new_enemy.PB_Entity.BackColor = Color.Transparent;
@@ -834,8 +838,9 @@ namespace WoonieHunter
 
             Entity item = new Entity();
             item.SetSpeed(5);
-            item.PB_Entity.Size = new Size(16, 12);
+            item.PB_Entity.Size = new Size(28,21);
             item.PB_Entity.Image = Properties.Resources.item1;
+            item.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             item.PB_Entity.Visible = true;
             item.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
             item.PB_Entity.BackColor = Color.Transparent;

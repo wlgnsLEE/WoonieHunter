@@ -118,8 +118,13 @@
     <None Include="Resources\bg-stars1.png" />
     <Content Include="Resources\boss.png" />
     <Content Include="Resources\bossbullet.png" />
-    <Content Include="Resources\heart.png" />
+    <None Include="Resources\enemy1.png" />
+    <None Include="Resources\enemy2.png" />
+    <None Include="Resources\enemy3.png" />
+    <None Include="Resources\bullet2.png" />
     <None Include="Resources\Item.png" />
+    <None Include="Resources\mini-heart.png" />
+    <None Include="Resources\heart.png" />
     <Content Include="Resources\upgradebullet.png" />
     <None Include="Resources\asteroid.png" />
     <None Include="Resources\bg-stars.png" />
