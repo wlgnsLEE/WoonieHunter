@@ -115,6 +115,7 @@
     <None Include="Resources\character.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\bg-stars1.png" />
     <Content Include="Resources\boss.png" />
     <Content Include="Resources\heart.png" />
     <None Include="Resources\Item.png" />
