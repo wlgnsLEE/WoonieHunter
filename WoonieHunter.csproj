@@ -117,6 +117,7 @@
   <ItemGroup>
     <None Include="Resources\bg-stars1.png" />
     <Content Include="Resources\boss.png" />
+    <Content Include="Resources\bossbullet.png" />
     <Content Include="Resources\heart.png" />
     <None Include="Resources\Item.png" />
     <Content Include="Resources\upgradebullet.png" />
@@ -128,7 +129,6 @@
     <None Include="Resources\bg-planet.png" />
     <None Include="Resources\bg-planet2.png" />
     <None Include="Resources\bg-back.png" />
-    <Content Include="Resources\bossbullet.png" />
     <Content Include="Resources\skill.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

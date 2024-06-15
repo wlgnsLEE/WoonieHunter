@@ -54,6 +54,7 @@ namespace WoonieHunter
         {
             this.speed = speed;
         }
+
     }
 
     internal class boss : Entity

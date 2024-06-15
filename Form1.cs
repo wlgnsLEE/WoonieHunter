@@ -28,6 +28,7 @@ namespace WoonieHunter
         private List<PictureBox> skills;
         private List<Entity> meteors;
         private List<boss> Boss;
+        private List<Entity> bossbullet;
         private int enemyspawn = 0;
         private int bosstimer = 0;
         private int bulletSpeed = 15;
@@ -41,10 +42,13 @@ namespace WoonieHunter
         private int skilltimer = 0;
         private int skillcount = 0;
         private bool canuseskill = true;
+        private bool bossmove = true;
         private int score = 0;
         Label lbScoreText = new Label();
         Label lbScore = new Label();
-        
+        private List<PictureBox> HPUI;
+        private int[] bpattern1 = { 10, 130, 250, 370, 490, 610, 730 };
+        private int[] bpattern2 = { 750, 630, 510, 390, 270, 150, 30 };
 
 
         private System.Timers.Timer tmr_bgm;
@@ -87,6 +91,8 @@ namespace WoonieHunter
             meteors = new List<Entity>();
             Boss = new List<boss>();
             items = new List<Entity>();
+            bossbullet = new List<Entity>();
+            HPUI = new List<PictureBox>();
 
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
 
@@ -128,6 +134,20 @@ namespace WoonieHunter
             lbScore.BackColor = Color.Transparent;
             lbScore.ForeColor = Color.White;
             lbScore.Parent = this;
+
+            //캐릭터 HPUI생성
+            for(int i = 0; i < 3; i++)
+            {
+                PictureBox Heart = new PictureBox();
+                Heart.Image = Properties.Resources.heart;
+                Heart.Size = new System.Drawing.Size(30, 30);
+                Heart.SizeMode = PictureBoxSizeMode.Zoom;
+                Heart.Location = new System.Drawing.Point(330 + i * 25, 20);
+                Heart.Visible = true;
+
+                HPUI.Add( Heart );
+                Controls.Add( Heart );
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -215,6 +235,29 @@ namespace WoonieHunter
             bullettimmer++;
             skilltimer++;
 
+            if (player.life == 3)
+            {
+                HPUI[0].Visible = true;
+                HPUI[1].Visible = true;
+                HPUI[2].Visible = true;
+            }else if (player.life == 2)
+            {
+                HPUI[0].Visible=true;
+                HPUI[1].Visible=true;
+                HPUI[2].Visible=false;
+            }else if(player.life == 1)
+            {
+                HPUI[0].Visible = true;
+                HPUI[1].Visible = false;
+                HPUI[2].Visible = false;
+            }else if (player.life == 0)
+            {
+                HPUI[0].Visible = false;
+                HPUI[1].Visible = false;
+                HPUI[2].Visible = false;
+            }
+
+
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].PB_Entity.Top += enemies[i].GetSpeed();
@@ -224,6 +267,20 @@ namespace WoonieHunter
                     Controls.Remove(enemies[i].PB_Entity);
 
                     enemies.RemoveAt(i);
+
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < bossbullet.Count; i++)
+            {
+                bossbullet[i].PB_Entity.Top += bossbullet[i].GetSpeed();
+
+                if (bossbullet[i].PB_Entity.Bottom > 1000)
+                {
+                    Controls.Remove(bossbullet[i].PB_Entity);
+
+                    bossbullet.RemoveAt(i);
 
                     i--;
                 }
@@ -246,8 +303,13 @@ namespace WoonieHunter
 
                 if (IsAttacked(player.PB_Entity, items[i].PB_Entity))
                 {
-                    skillcount++;
-
+                    if (items[i].life == 0)
+                    {
+                        skillcount++;
+                    }else if (items[i].life == 1 && player.life < 3)
+                    {
+                        player.life++;
+                    }
                     Controls.Remove(items[i].PB_Entity);
 
                     items.RemoveAt(i);
@@ -262,7 +324,7 @@ namespace WoonieHunter
 
             // 점수
             lbScoreText.Text =  score.ToString();
-
+       
 
             // 랭킹 입력용
             if (isP_Pressed)
@@ -305,6 +367,30 @@ namespace WoonieHunter
 
                 }
             }
+
+            if (Boss.Count > 0)
+            {
+                if (Boss[0].GetEntityX() > 650)
+                {
+                    bossmove = true;
+                }
+                else if (Boss[0].GetEntityX() < 50)
+                {
+                    bossmove = false;
+                }
+
+                if (bossmove == true)
+                {
+                    Boss[0].SetEntityX(Boss[0].GetEntityX() - 2);
+                }
+                else
+                {
+                    Boss[0].SetEntityX(Boss[0].GetEntityX() + 2);
+                }
+
+                Boss[0].PB_Entity.Location = new System.Drawing.Point(Boss[0].GetEntityX(), Boss[0].GetEntityY());
+            }
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -466,6 +552,19 @@ namespace WoonieHunter
                     }
                 }
 
+                for (int j = 0; j < bossbullet.Count; j++)
+                {
+                    if (i >= 0 && j >= 0)
+                    {
+                        if (IsAttacked(skills[i], bossbullet[j].PB_Entity) == true)//적과 충돌했을 때
+                        {
+                            this.Controls.Remove(bossbullet[j].PB_Entity);//적 삭제
+                            bossbullet.RemoveAt(j);
+                            j--;
+                        }
+                    }
+                }
+
                 if (enemyspawn > 0 && Boss.Count > 0)
                 {
                     if (IsAttacked(skills[i], Boss[0].PB_Entity))
@@ -519,6 +618,68 @@ namespace WoonieHunter
             Controls.Add(new_enemy.PB_Entity);
         }
 
+        private void bosspatternbase()
+        {
+            Random generateRandom;
+
+            for (int i = 0; i < 5; i++)
+            {
+                DateTime curTime = DateTime.Now;
+                generateRandom = new Random(curTime.Millisecond);
+
+                int rand_pos_x = generateRandom.Next(10, 790);
+                int rand_pos_y = generateRandom.Next(0, 50);
+
+                Entity new_enemy = new Entity();
+                new_enemy.SetSpeed(10);
+                new_enemy.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
+                new_enemy.PB_Entity.Size = new Size(30, 30);
+                new_enemy.PB_Entity.Image = Properties.Resources.bossbullet;
+                new_enemy.PB_Entity.Visible = true;
+                new_enemy.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
+                new_enemy.PB_Entity.BackColor = Color.Transparent;
+                bossbullet.Add(new_enemy);
+                Controls.Add(new_enemy.PB_Entity);
+            }
+        }
+
+        private void bosspattern1()
+        {
+            for (int i=0; i < 6; i++)
+            {
+                int rand_pos_x = bpattern1[i];
+                int rand_pos_y = 50;
+                Entity new_enemy = new Entity();
+                new_enemy.SetSpeed(10);
+                new_enemy.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
+                new_enemy.PB_Entity.Size = new Size(30, 30);
+                new_enemy.PB_Entity.Image = Properties.Resources.bossbullet;
+                new_enemy.PB_Entity.Visible = true;
+                new_enemy.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
+                new_enemy.PB_Entity.BackColor = Color.Transparent;
+                bossbullet.Add(new_enemy);
+                Controls.Add(new_enemy.PB_Entity);
+            }
+        }
+
+        private void bosspattern2()
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                int rand_pos_x = bpattern2[i];
+                int rand_pos_y = 50;
+                Entity new_enemy = new Entity();
+                new_enemy.SetSpeed(10);
+                new_enemy.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
+                new_enemy.PB_Entity.Size = new Size(30, 30);
+                new_enemy.PB_Entity.Image = Properties.Resources.bossbullet;
+                new_enemy.PB_Entity.Visible = true;
+                new_enemy.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
+                new_enemy.PB_Entity.BackColor = Color.Transparent;
+                bossbullet.Add(new_enemy);
+                Controls.Add(new_enemy.PB_Entity);
+            }
+        }
         private void create_boss()
         {
             boss new_boss = new boss();
@@ -526,7 +687,8 @@ namespace WoonieHunter
             new_boss.PB_Entity.SizeMode = PictureBoxSizeMode.Zoom;
             new_boss.PB_Entity.Image = Properties.Resources.boss;
             new_boss.PB_Entity.Visible = true;
-            new_boss.PB_Entity.Location = new System.Drawing.Point(300, 10);
+            new_boss.PB_Entity.Location = new System.Drawing.Point(300, 25);
+            new_boss.SetEntityY(25);
             new_boss.SetSpeed(0);
             new_boss.PB_Entity.BringToFront();
             new_boss.PB_Entity.BackColor = Color.Transparent;
@@ -552,12 +714,33 @@ namespace WoonieHunter
             item.PB_Entity.Visible = true;
             item.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
             item.PB_Entity.BackColor = Color.Transparent;
-
+            item.life = 0;//0이면 스킬횟수추가
             items.Add(item);
             Controls.Add(item.PB_Entity);
         }
 
+        private void create_heart()
+        {
+            Random generateRandom;
+            DateTime curTime = DateTime.Now;
+            generateRandom = new Random(curTime.Millisecond);
 
+            int rand_pos_x = generateRandom.Next(10, 790);
+            int rand_pos_y = generateRandom.Next(0, 50);
+
+            Entity item = new Entity();
+            item.SetSpeed(5);
+            item.PB_Entity.Size = new Size(16, 12);
+            item.PB_Entity.Image = Properties.Resources.heart;
+            item.PB_Entity.Visible = true;
+            item.PB_Entity.Location = new System.Drawing.Point(rand_pos_x, rand_pos_y);
+            item.PB_Entity.BackColor = Color.Transparent;
+            item.life = 1;//1이면 회복아이템
+            items.Add(item);
+            Controls.Add(item.PB_Entity);
+        }
+
+        int bossbulletcall = 0;
         private void tmr_spawn_enemy_Tick(object sender, EventArgs e)
         {
             if (enemyspawn == 0)
@@ -568,6 +751,26 @@ namespace WoonieHunter
             {
                 create_boss();
                 enemyspawn++;
+            }
+            else 
+            {
+                Random generateRandom;
+                DateTime curTime = DateTime.Now;
+                generateRandom = new Random(curTime.Millisecond);
+         
+                    int num = generateRandom.Next(0, 50) % 3;
+                    if (num==0)
+                    {
+                        bosspatternbase();
+                    }else if (num == 1)
+                    {
+                        bosspattern1();
+                    }
+                    else
+                    {
+                        bosspattern2();
+                    }
+
             }
         }
 
@@ -681,9 +884,17 @@ namespace WoonieHunter
             }
         }
 
+        int heartsptime = 10;
         private void tmr_item_spawn_Tick(object sender, EventArgs e)
         {
+       
             create_item();
+            if (heartsptime == 0)
+            {
+                create_heart();
+                heartsptime = 10;
+            }
+            heartsptime--;
         }
     }
 }
